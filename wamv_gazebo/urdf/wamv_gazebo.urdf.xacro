@@ -86,7 +86,7 @@
   <!-- Cameras -->
   <xacro:if value="$(arg camera_enabled)">
       <xacro:wamv_camera name="front_camera" y="0" x="1.6" z="0.65" />
-      <xacro:wamv_camera name="back_camera" y="0" x="0.30" z="0.65" P="${radians(-180)}"/>
+      <xacro:wamv_camera name="back_camera" y="0" x="0.30" z="0.65" P="${radians(-180)}" R="${radians(-180)}"/>
   </xacro:if>
 
   <!--  GPS -->
@@ -106,7 +106,7 @@
   
   <!--  PLANAR -->
   <xacro:if value="$(arg planar_enabled)"> 
-    <xacro:wamv_multibeam_laser name="planar_wamv" x="0.6" y="0" z="0.65"/>
+    <xacro:wamv_multibeam_laser name="planar_wamv" x="0.6" y="0" z="0.7"/>
   </xacro:if>
 
 </robot>
