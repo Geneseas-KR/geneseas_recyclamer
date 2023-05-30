@@ -27,6 +27,10 @@ mkdir ~/recyclamer/src
 cd ~/recyclamer/src
 git clone git@github.com:robotrecyclamer/recyclamer.git
 ```
+Agregamos el submodulo del repositorio de hector_gazebo_plugins
+```
+git submodule update --init --recursive
+```
 
 Y ahora para hacer el build y correr la plataforma
 
