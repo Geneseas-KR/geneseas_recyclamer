@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">  
+
+  <xacro:macro name="sonar" params="name x:=0 y:=0 z:=0 R:=0 P:=0 Y:=0 ros_topic update_rate:=10 min_range:=0.3 max_range:=2 field_of_view:=56 ray_count:=2">
+
+
+    <joint name="${namespace}/${name}_joint" type="fixed">
+      <origin xyz= "${x} ${y} ${z}" rpy="${R} ${P} ${Y}" />
+      <parent link="${namespace}/base_link"/>
+      <child link="${namespace}/${name}_link"/>
+    </joint> 
+
+    <link name="${namespace}/${name}_link">
+      <inertial>
+          <visual name="${namespace}/${name}_visual">
+        <geometry>
+          <mesh filename="package://wamv_gazebo/models/sonar/mesh/sonar.dae"/>
+        </geometry>
+      </visual>
+        <mass value="0.001" />  
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <inertia ixx="0.000000017" ixy="0" ixz="0" iyy="0.000000017" iyz="0" izz="0.000000017" />
+      </inertial>
+        
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <box size="0.05 0.05 0.05" />
+        </geometry>
+      </visual>
+   
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <cylinder length="0.06" radius="0.02" />
+        </geometry>
+      </visual>
+
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <box size="0.05 0.05 0.05" />
+        </geometry>
+      </collision>
+    </link>     
+    
+    
+   
+    <gazebo reference="${namespace}/${name}_link">
+      <sensor type="ray" name="${name}">
+        <always_on>true</always_on>
+        <update_rate>${update_rate}</update_rate>
+        <pose>0 0 0 0 0 0</pose>
+        <visualize>true</visualize>
+        <ray>
+          <scan>
+            <horizontal>
+              <samples>${ray_count}</samples>
+              <resolution>1</resolution>
+              <min_angle>-${field_of_view/2}</min_angle>
+              <max_angle>${field_of_view/2}</max_angle>
+            </horizontal>
+            <vertical>
+              <samples>${ray_count}</samples>
+              <resolution>1</resolution>
+              <min_angle>-${field_of_view/2}</min_angle>
+              <max_angle>${field_of_view/2}</max_angle>
+            </vertical>
+          </scan>
+          <range>
+            <min>${min_range}</min>
+            <max>${max_range}</max>
+            <resolution>0.01</resolution>
+          </range>
+        </ray>
+
+        <plugin name="gazebo_ros_${name}_controller" filename="libhector_gazebo_ros_sonar.so">
+          <gaussianNoise>0.005</gaussianNoise>
+          <topicName>${ros_topic}</topicName>
+          <frameId>${namespace}/${name}_link</frameId>
+        </plugin>
+      </sensor>
+    </gazebo>
+
+
+    <gazebo reference="${namespace}/${name}_link">
+      <material>Gazebo/Black</material>
+    </gazebo>
+  </xacro:macro>
+</robot>

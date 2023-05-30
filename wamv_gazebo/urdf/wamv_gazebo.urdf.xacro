@@ -1,0 +1,112 @@
+<?xml version="1.0"?>
+<!-- Basic WAM-V with gazebo plugins for dynamics -->
+<robot xmlns:xacro="http://ros.org/wiki/xacro"
+       name="WAM-V">
+  <xacro:arg name="locked" default="false" />
+  <xacro:arg name="thruster_config" default="H" />
+  <xacro:arg name="camera_enabled" default="true" />
+  <xacro:arg name="gps_enabled" default="true" />
+  <xacro:arg name="imu_enabled" default="true" />
+  <xacro:arg name="lidar_enabled" default="true" />
+  <xacro:arg name="planar_enabled" default="true" />
+  <xacro:arg name="sonar_enabled" default="true" />
+  <xacro:arg name="vrx_sensors_enabled" default="false" />
+  <xacro:arg name="thruster_namespace" default="thrusters/"/>
+  <xacro:arg name="camera_namespace" default="cameras/"/>  
+  <xacro:arg name="sensor_namespace" default="sensors/"/>
+  <xacro:arg name="pinger_namespace" default="pingers/"/>
+  <!-- Note: this is only used for some sensors that do not correctly use the 
+  robotNamespace parameter -->
+  <xacro:arg name="namespace" default="wamv"/>    
+  <xacro:property name="thruster_namespace" value="$(arg thruster_namespace)" scope="global" />
+  <xacro:property name="camera_namespace" value="$(arg camera_namespace)" scope="global" />
+  <xacro:property name="sensor_namespace" value="$(arg sensor_namespace)" scope="global" />
+  <xacro:property name="pinger_namespace" value="$(arg pinger_namespace)" scope="global" />
+  <xacro:property name="namespace" value="$(arg namespace)" scope="global" />      
+  
+  <!-- Sensor yaml file -->
+  <xacro:arg name="yaml_sensor_generation" default="false"/>
+  <xacro:arg name="sensor_xacro_file" default = ""/>
+  
+  <!-- === The WAM-V platform === -->
+  <xacro:include filename="$(find wamv_gazebo)/urdf/wamv_gazebo.xacro"/>
+  
+  <!-- === Thrusters === -->
+  <xacro:wamv_gazebo thruster_layout="$(find wamv_gazebo)/urdf/thruster_layouts/wamv_t_thrusters.xacro"/>
+  
+  <!-- === Decide if we lock the robot to the world === -->
+  <xacro:if value="$(arg locked)">
+    <gazebo>
+      <link name="wamv_external_link"/>
+      <joint name="wamv_external_pivot_joint" type="universal">
+        <parent>wamv::base_link</parent>
+        <child>wamv_external_link</child>
+        <axis>
+          <xyz>1 0 0</xyz>
+        </axis>
+        <axis2>
+          <xyz>0 1 0</xyz>
+        </axis2>
+      </joint>
+      <joint name="wamv_external_riser" type="prismatic">
+        <parent>world</parent>
+        <child>wamv_external_link</child>
+        <axis>
+          <limit>
+            <lower>-3</lower>
+            <upper>3</upper>
+          </limit>
+          <xyz>0 0 1</xyz>
+        </axis>
+      </joint>
+    </gazebo>
+  </xacro:if>
+
+  <!-- === Sensors === -->
+
+  <!-- === Sonar === -->
+  <xacro:if value="$(arg sonar_enabled)">
+	<xacro:sonar name="sonar_sensor5" x="1.6" y="0.4" z="0.6" ros_topic="sonar5/distance5" Y="${radians(45)}" update_rate="10" min_range="0.3" max_range="2" field_of_view="56" ray_count="2" />
+
+	<xacro:sonar name="sonar_sensor4" x="1.6" y="0" z="0.6" ros_topic="sonar4/distance4" Y="${radians(0)}" update_rate="10" min_range="0.3" max_range="2" field_of_view="56" ray_count="2" />
+
+    	<xacro:sonar name="sonar_sensor3" x="1.6" y="-0.4" z="0.6" ros_topic="sonar3/distance3" Y="${radians(-45)}" update_rate="10" min_range="0.3" max_range="2" field_of_view="56" ray_count="2" />
+
+	<xacro:sonar name="sonar_sensor2" x="0.9" y="-0.4" z="0.6" ros_topic="sonar2/distance2" Y="${radians(-90)}" update_rate="10" min_range="0.3" max_range="2" field_of_view="56" ray_count="2" />
+
+    	<xacro:sonar name="sonar_sensor1" x="0.3" y="0.4" z="0.6" ros_topic="sonar1/distance1" Y="${radians(135)}" update_rate="10" min_range="0.3" max_range="2" field_of_view="56" ray_count="2" />
+
+	<xacro:sonar name="sonar_sensor8" x="0.3" y="0" z="0.6" ros_topic="sonar8/distance8" Y="${radians(180)}" update_rate="10" min_range="0.3" max_range="2" field_of_view="56" ray_count="2" />
+
+    	<xacro:sonar name="sonar_sensor7" x="0.3" y="-0.4" z="0.6" ros_topic="sonar7/distance7" Y="${radians(-135)}" update_rate="10" min_range="0.3" max_range="2" field_of_view="56" ray_count="2" /> 
+    
+	<xacro:sonar name="sonar_sensor6" x="0.9" y="0.4" z="0.6" ros_topic="sonar6/distance6" Y="${radians(90)}" update_rate="10" min_range="0.3" max_range="2" field_of_view="56" ray_count="2" />
+  </xacro:if>
+ 
+  <!-- Cameras -->
+  <xacro:if value="$(arg camera_enabled)">
+      <xacro:wamv_camera name="front_camera" y="0" x="1.6" z="0.65" />
+      <xacro:wamv_camera name="back_camera" y="0" x="0.30" z="0.65" P="${radians(-180)}"/>
+  </xacro:if>
+
+  <!--  GPS -->
+  <xacro:if value="$(arg gps_enabled)">
+    <xacro:wamv_gps name="gps_wamv" x="0.65" y="0" z="0.3" />
+  </xacro:if>
+
+  <!--  IMU -->
+  <xacro:if value="$(arg imu_enabled)">
+    <xacro:wamv_imu name="imu_wamv" x="1.2" y="0" z="0.3" />
+  </xacro:if>  
+  
+  <!--  3D LIDAR -->
+  <xacro:if value="$(arg lidar_enabled)">
+    <xacro:lidar name="lidar_wamv" x="0.6" y="0" z="0.65" type="16_beam"/>
+  </xacro:if> 
+  
+  <!--  PLANAR -->
+  <xacro:if value="$(arg planar_enabled)"> 
+    <xacro:wamv_multibeam_laser name="planar_wamv" x="0.6" y="0" z="0.65"/>
+  </xacro:if>
+
+</robot>

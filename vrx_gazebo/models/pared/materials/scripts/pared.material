@@ -1,0 +1,14 @@
+material pared/QR
+{
+  receive_shadows off
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture texture.png
+      }
+    }
+  }
+}

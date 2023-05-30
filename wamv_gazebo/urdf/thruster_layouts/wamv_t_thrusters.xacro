@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro">
+  <xacro:include filename="$(find wamv_description)/urdf/thrusters/engine.xacro" />
+  <xacro:engine prefix="left" position="${0.95+0.38} ${0.33} 0.368237" orientation="0.0 0.0 0.0" />
+  <xacro:engine prefix="right" position="${0.95+0.38} ${-0.33} 0.368237"  orientation="0.0 0.0 0.0" />
+  <xacro:engine prefix="middle" position="${0.68} ${0} 0.265237" orientation="0.0 0.0 0.0"/>
+  <xacro:engine prefix="lateral" position="${0.75} ${-0.25} 0.3" orientation="0.0 0.0 80.0"/>
+  
+  
+  <gazebo>
+    <plugin name="wamv_gazebo_thrust" filename="libusv_gazebo_thrust_plugin.so">
+      <cmdTimeout>1.0</cmdTimeout>
+      <robotNamespace>${namespace}</robotNamespace>
+      <xacro:include filename="$(find wamv_gazebo)/urdf/thruster_layouts/wamv_gazebo_thruster_config.xacro" />
+      <xacro:wamv_gazebo_thruster_config name="left" />
+      <xacro:wamv_gazebo_thruster_config name="right" />
+      <xacro:wamv_gazebo_thruster_config name="middle" />
+      <xacro:wamv_gazebo_thruster_config name="lateral" />
+    </plugin>
+  </gazebo>
+</robot>
