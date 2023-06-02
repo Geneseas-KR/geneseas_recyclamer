@@ -106,7 +106,7 @@
   
   <!--  PLANAR -->
   <xacro:if value="$(arg planar_enabled)"> 
-    <xacro:wamv_multibeam_laser name="planar_wamv" x="0.6" y="0" z="0.7"/>
+    <xacro:wamv_multibeam_laser name="planar_wamv" x="0.6" y="0" z="0.8"/>
   </xacro:if>
 
 </robot>

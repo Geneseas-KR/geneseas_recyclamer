@@ -17,10 +17,10 @@
       <child link="${namespace}/${name}_link" />
     </joint>
     <gazebo reference="${namespace}/${name}_link">
-      <sensor type="gpu_ray" name="multibeam_sensor_${name}">
+      <sensor type="ray" name="multibeam_sensor_${name}">
       <always_on>true</always_on>
         <update_rate>10</update_rate>
-        <visualize>true</visualize>
+        <visualize>false</visualize>
         <ray>
           <scan>
             <horizontal>
@@ -39,7 +39,7 @@
             <resolution>0.02</resolution>
           </range>
         </ray>
-        <plugin name="multibeam_simulator" filename="libgazebo_ros_gpu_laser.so">
+        <plugin name="multibeam_simulator" filename="libgazebo_ros_laser.so">
           <topicName>${namespace}/${sensor_namespace}lidars/${name}/scan</topicName>
           <frameName>${namespace}/${name}_link</frameName>
         </plugin>
