@@ -11,13 +11,13 @@
       </visual>
        -->
       <collision name="${prefix}_engine_vertical_axis_collision">
-        <origin xyz="-0.16 0 -0.24" rpy="0 0 0" />
+        <origin xyz="-0.16 0 -0.24" rpy="0 0 0" /> <!-- xyz="-0.16 0 -0.24" -->
         <geometry>
           <box size="0.2 0.15 0.83" />
         </geometry>
       </collision>
       <collision name="${prefix}_engine_rear_end_collision">
-        <origin xyz="-0.34 0 0.12" rpy="0 0 0" />
+        <origin xyz="-0.34 0 0.12" rpy="0 0 0" /> <!-- xyz="-0.34 0 0.12" -->
         <geometry>
           <box size="0.12 0.15 0.12" />
         </geometry>
@@ -35,7 +35,7 @@
         </geometry>
       </visual>
       <collision name="${prefix}_propeller_collision">
-        <origin xyz="0 0 0" rpy="0 1.57 0" />
+        <origin xyz="0 0 0" rpy="0 1.57 0" /> <!-- xyz="0 0 0" -->
         <geometry>
           <cylinder length="0.18" radius="0.24" />
         </geometry>
@@ -49,16 +49,16 @@
     <joint name="${namespace}/${prefix}_chasis_engine_joint" type="revolute">
       <axis xyz="0 0 1"/>
       <limit lower="${-pi}" upper="${pi}" effort="10" velocity="10"/>
-      <origin xyz="${position}" rpy="${orientation}"/>
+      <origin xyz="${position}" rpy="${orientation}"/> <!-- xyz="${position}"-->
       <parent link="${namespace}/base_link"/>
       <child link="${namespace}/${prefix}_engine_link"/>
     </joint>
 
     <joint name="${namespace}/${prefix}_engine_propeller_joint" type="continuous">
-      <axis rpy="0 0 0" xyz="1 0 0"/>
+      <axis rpy="0 0 0" xyz="1 0 0"/>  <!-- xyz="1 0 0" -->
       <parent link="${namespace}/${prefix}_engine_link"/>
       <child link="${namespace}/${prefix}_propeller_link"/>
-      <origin rpy="0 0 0" xyz="-0.278156 0 -0.509371"/>
+      <origin rpy="0 0 0" xyz="-0.278156 0 -0.509371"/> <!-- xyz="-0.278156 0 -0.509371" -->
       <limit effort="100" velocity="100" />
       <dynamics friction="0.05" damping="0.05" />
     </joint>
