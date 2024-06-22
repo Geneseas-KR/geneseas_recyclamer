@@ -66,21 +66,14 @@
 
   <!-- === Sonar === -->
   <xacro:if value="$(arg sonar_enabled)">
-	<xacro:sonar name="sonar_sensor5" x="0.9" y="0.4" z="0.6" ros_topic="sonar5/distance5" Y="${radians(45)}" update_rate="10" min_range="0.3" max_range="2" field_of_view="56" ray_count="2" />
-
-	<xacro:sonar name="sonar_sensor4" x="0.9" y="0" z="0.6" ros_topic="sonar4/distance4" Y="${radians(0)}" update_rate="10" min_range="0.3" max_range="2" field_of_view="56" ray_count="2" />
-
-    	<xacro:sonar name="sonar_sensor3" x="0.9" y="-0.4" z="0.6" ros_topic="sonar3/distance3" Y="${radians(-45)}" update_rate="10" min_range="0.3" max_range="2" field_of_view="56" ray_count="2" />
-
-	<xacro:sonar name="sonar_sensor2" x="0.2" y="-0.4" z="0.6" ros_topic="sonar2/distance2" Y="${radians(-90)}" update_rate="10" min_range="0.3" max_range="2" field_of_view="56" ray_count="2" />
-
-    	<xacro:sonar name="sonar_sensor1" x="-0.4" y="0.4" z="0.6" ros_topic="sonar1/distance1" Y="${radians(135)}" update_rate="10" min_range="0.3" max_range="2" field_of_view="56" ray_count="2" />
-
-	<xacro:sonar name="sonar_sensor8" x="-0.4" y="0" z="0.6" ros_topic="sonar8/distance8" Y="${radians(180)}" update_rate="10" min_range="0.3" max_range="2" field_of_view="56" ray_count="2" />
-
-    	<xacro:sonar name="sonar_sensor7" x="-0.4" y="-0.4" z="0.6" ros_topic="sonar7/distance7" Y="${radians(-135)}" update_rate="10" min_range="0.3" max_range="2" field_of_view="56" ray_count="2" /> 
-    
-	<xacro:sonar name="sonar_sensor6" x="0.2" y="0.4" z="0.6" ros_topic="sonar6/distance6" Y="${radians(90)}" update_rate="10" min_range="0.3" max_range="2" field_of_view="56" ray_count="2" />
+	<xacro:sonar name="sonar_sensor5" x="0.9" y="0.4" z="0.6" ros_topic="/geneseas/sonar5/distance" Y="${radians(45)}" update_rate="10" min_range="0.3" max_range="2" field_of_view="56" ray_count="2" />
+	<xacro:sonar name="sonar_sensor4" x="0.9" y="0" z="0.6" ros_topic="/geneseas/sonar4/distance" Y="${radians(0)}" update_rate="10" min_range="0.3" max_range="2" field_of_view="56" ray_count="2" />
+ 	<xacro:sonar name="sonar_sensor3" x="0.9" y="-0.4" z="0.6" ros_topic="/geneseas/sonar3/distance" Y="${radians(-45)}" update_rate="10" min_range="0.3" max_range="2" field_of_view="56" ray_count="2" />
+	<xacro:sonar name="sonar_sensor2" x="0.2" y="-0.4" z="0.6" ros_topic="/geneseas/sonar2/distance" Y="${radians(-90)}" update_rate="10" min_range="0.3" max_range="2" field_of_view="56" ray_count="2" />
+ 	<xacro:sonar name="sonar_sensor1" x="-0.4" y="0.4" z="0.6" ros_topic="/geneseas/sonar1/distance" Y="${radians(135)}" update_rate="10" min_range="0.3" max_range="2" field_of_view="56" ray_count="2" />
+	<xacro:sonar name="sonar_sensor8" x="-0.4" y="0" z="0.6" ros_topic="/geneseas/sonar8/distance" Y="${radians(180)}" update_rate="10" min_range="0.3" max_range="2" field_of_view="56" ray_count="2" />
+ 	<xacro:sonar name="sonar_sensor7" x="-0.4" y="-0.4" z="0.6" ros_topic="/geneseas/sonar7/distance" Y="${radians(-135)}" update_rate="10" min_range="0.3" max_range="2" field_of_view="56" ray_count="2" /> 
+	<xacro:sonar name="sonar_sensor6" x="0.2" y="0.4" z="0.6" ros_topic="/geneseas/sonar6/distance" Y="${radians(90)}" update_rate="10" min_range="0.3" max_range="2" field_of_view="56" ray_count="2" />
   </xacro:if>
  
   <!-- Cameras -->

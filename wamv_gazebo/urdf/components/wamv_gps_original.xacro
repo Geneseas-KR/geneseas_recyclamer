@@ -40,8 +40,8 @@
         <alwaysOn>true</alwaysOn>
         <bodyName>${namespace}/${name}_link</bodyName>
         <!-- Manually prepend namespace to tf frame. -->
-        <frameId>geneseas/gps_link</frameId>
-       <topicName>/geneseas/gps/fix</topicName>
+        <frameId>${namespace}/${name}_link</frameId>
+        <topicName>${namespace}/${sensor_namespace}gps/gps/fix</topicName>
         <!-- Note that the hector_gazebo_ros_gps plugin uses NWU coordinates
              for reporting velocities.  This may cause problems if localization
              requires velocity in ENU.

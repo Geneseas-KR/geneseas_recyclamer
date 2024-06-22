@@ -40,8 +40,8 @@
           </range>
         </ray>
         <plugin name="multibeam_simulator" filename="libgazebo_ros_laser.so">
-          <topicName>${namespace}/${sensor_namespace}lidars/${name}/scan</topicName>
-          <frameName>${namespace}/${name}_link</frameName>
+          <topicName>/geneseas/lidar/planar/scan</topicName>
+          <frameName>geneseas/lidar_link</frameName>
         </plugin>
       </sensor>
     </gazebo>

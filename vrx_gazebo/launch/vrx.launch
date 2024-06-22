@@ -70,4 +70,13 @@
   <!-- Pinger visualization -->
   <node name="pinger_visualization" pkg="vrx_gazebo" type="pinger_visualization.py" />
 
+  <!-- Arbol de transformadas -->
+    <?ignore
+  <remap from="robot_description" to="wamv/robot_description"/>
+ ?>
+ 
+ <param name="robot_description" command="xacro --inorder '$(find modelo_urdf)/Modelo/recyclamer.xacro'"/> 
+
+  <node pkg="robot_state_publisher" type="robot_state_publisher" name="rob_st_pub" />
+
 </launch>
