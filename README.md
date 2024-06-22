@@ -39,4 +39,20 @@ source ~/recyclamer/devel/setup.bash
 roslaunch vrx_gazebo vrx.launch
 ```
 
-Y deberias poder correr el simulador.
+Y deberias poder correr el simulador. 
+
+
+OBSERVACIONES:
+1) Este simulador esta orientado a pruebas de cinematica del robot Geneseas Recyclamer. Prubas de dinamica no reflejaran comportamientos 100% coincidentes con robot real.
+2) Los topicos de los sensores estan en acuerdo a los utilizados en el robot real con excepcion de los topicos de los motores. Se utilizan los nombres originales del simulador VRX (/wamv/thrusters/...). Al utilizarse codigos en el robot real podemos usar la herramienta remap:
+
+```
+      <!-- decomentar para usar con robot real-->
+      <?ignore
+      <remap from="/wamv/thrusters/left_thrust_cmd" to="/geneseas/motor_l"/>
+      <remap from="/wamv/thrusters/right_thrust_cmd" to="/geneseas/motor_r"/>
+      <remap from="/wamv/thrusters/middle_thrust_cmd" to="/geneseas/motor_c"/>
+      <remap from="/wamv/thrusters/direction_thrust_cmd" to="/geneseas/motor_d"/>
+      ?>
+```
+3) El mundo por defecto se ubica en la regata de Sidney por tanto tomar en cuenta en codigos de localizacion a testear (zona UTM y declinacion magnetica)
