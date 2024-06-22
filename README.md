@@ -44,7 +44,8 @@ Y deberias poder correr el simulador.
 
 OBSERVACIONES:
 1) Este simulador esta orientado a pruebas de cinematica del robot Geneseas Recyclamer. Prubas de dinamica no reflejaran comportamientos 100% coincidentes con robot real.
-2) Los topicos de los sensores estan en acuerdo a los utilizados en el robot real con excepcion de los topicos de los motores. Se utilizan los nombres originales del simulador VRX (/wamv/thrusters/...). Al utilizarse codigos en el robot real podemos usar la herramienta remap:
+2) Los topicos de los sensores estan en acuerdo a los utilizados en el robot real.
+3) En los topicos de los motores, se utilizan los nombres originales del simulador VRX (/wamv/thrusters/...). Al utilizarse codigos en el robot real podemos usar la herramienta remap:
 
 ```
       <!-- decomentar para usar con robot real-->
