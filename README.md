@@ -1,8 +1,8 @@
 # recyclamerunlp
 
-Pasos a seguir para poder instalar y ejecutar el simulador.
+Steps to follow to install and run the simulator
 
-Ejecutar los siguientes comandos en la terminal
+Run the following commands in the terminal
 
 ```
 sudo apt update
@@ -19,7 +19,8 @@ GAZ=gazebo11
 sudo apt install ${GAZ} lib${GAZ}-dev ros-${DIST}-gazebo-plugins ros-${DIST}-gazebo-ros ros-${DIST}-hector-gazebo-plugins ros-${DIST}-joy ros-${DIST}-joy-teleop ros-${DIST}-key-teleop ros-${DIST}-robot-localization ros-${DIST}-robot-state-publisher ros-${DIST}-joint-state-publisher ros-${DIST}-rviz ros-${DIST}-ros-base ros-${DIST}-teleop-tools ros-${DIST}-teleop-twist-keyboard ros-${DIST}-velodyne-simulator ros-${DIST}-xacro ros-${DIST}-rqt ros-${DIST}-rqt-common-plugins
 ```
 
-Crear una carpeta donde se va a encontrar el codigo y moverse a ella. Para luego clonar el repositorio
+Create a folder where the code will be located and navigate to it. Then clone the repository.
+
 
 ```
 mkdir ~/recyclamer
@@ -28,7 +29,7 @@ cd ~/recyclamer/src
 git clone https://github.com/robotrecyclamer/recyclamer.git
 ```
 
-Y ahora para hacer el build y correr la plataforma
+And now to build and run the platform.
 
 ```
 source /opt/ros/noetic/setup.bash
@@ -39,16 +40,15 @@ source ~/recyclamer/devel/setup.bash
 roslaunch vrx_gazebo vrx.launch
 ```
 
-Y deberias poder correr el simulador. 
+And you should be able to run the simulator.
 
 
-OBSERVACIONES:
-1) Este simulador esta orientado a pruebas de cinematica del robot Geneseas Recyclamer. Prubas de dinamica no reflejaran comportamientos 100% coincidentes con robot real.
-2) Los topicos de los sensores estan en acuerdo a los utilizados en el robot real.
-3) En los topicos de los motores, se utilizan los nombres originales del simulador VRX (/wamv/thrusters/...). Al utilizarse codigos en el robot real podemos usar la herramienta remap:
-
+OBSERVATIONS:
+1) This simulator is designed for kinematics tests of the Geneseas Recyclamer robot. Dynamics tests will not reflect behaviors that are 100% consistent with the real robot.
+2) The sensor topics are in accordance with those used on the real robot.
+3) For the motor topics, the original names from the VRX simulator (/wamv/thrusters/...) are used. When using codes on the real robot, we can use the remap tool:
 ```
-      <!-- decomentar para usar con robot real-->
+      <!-- uncomment to use with the real robot-->
       <?ignore
       <remap from="/wamv/thrusters/left_thrust_cmd" to="/geneseas/motor_l"/>
       <remap from="/wamv/thrusters/right_thrust_cmd" to="/geneseas/motor_r"/>
@@ -56,4 +56,4 @@ OBSERVACIONES:
       <remap from="/wamv/thrusters/direction_thrust_cmd" to="/geneseas/motor_d"/>
       ?>
 ```
-3) El mundo por defecto se ubica en la regata de Sidney por tanto tomar en cuenta en codigos de localizacion a testear (zona UTM y declinacion magnetica)
+4) The default world is located in the Sydney regatta, so take this into account in the localization codes to be tested (UTM zone and magnetic declination)
